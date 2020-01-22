@@ -3,9 +3,16 @@ import {
   View,
   Text,
   StyleSheet,
+  SafeAreaView,
+  KeyboardAvoidingView,
+  TextInput,
+  Platform
 } from 'react-native';
 import Firebase from '../../Services/Firebase';
 import { Message, User } from '../../Models';
+import Colors from '../../Assets/Colors';
+import MessageInput from './components/MessageInput';
+
 
 export default () => {
 
@@ -23,17 +30,21 @@ export default () => {
   }
 
   return(
-    <View style={styles.container}>
-      <Text>{'Chat Screen'}</Text>
-    </View>
+    <KeyboardAvoidingView 
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : null}  
+    >
+      <SafeAreaView>
+      <MessageInput/>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   )
 }
 
 const styles = StyleSheet.create({
   container:{
     flex:1,
-    justifyContent:'center',
-    alignContent:'center',
-    alignItems:'center',
+    flexDirection:'column-reverse',
+    backgroundColor:Colors.Primary
   }
 });

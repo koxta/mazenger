@@ -13,7 +13,9 @@ export default () => {
   return (
     <StoreProvider>
       <NavigationNativeContainer>
-        <Stack.Navigator initialRouteName={'SignIn'}>
+        <Stack.Navigator initialRouteName={'SignIn'} 
+          //KeyboardAvoidingView issues
+          headerMode={'none'}>
           <Stack.Screen name="SignIn" component={LoginScreen} />
           <Stack.Screen name="Chat" component={ChatScreen} />
         </Stack.Navigator>

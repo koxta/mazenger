@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { 
   View,
   Text,
@@ -8,9 +8,11 @@ import { Input, Icon } from 'react-native-elements'
 import SignInButton from './components/SignInButton';
 import Colors from '../../Assets/Colors';
 import Firebase from '../../Services/Firebase'
+import User, { setUser } from '../../Models/User';
+import { Store } from '../../Store/Store';
 
-
-export default () => {
+export default (props) => {
+  const { state, dispatch } = useContext(Store)
   const [userName,setUserName] = useState('');
 
   const validateUsername = () : boolean => {
@@ -19,7 +21,12 @@ export default () => {
 
   const onSigninPress = () => {
     if(validateUsername()){
+      const user = new User();
+      user.userName = userName;
+      user.uid = Firebase.userUid();
       
+      setUser(dispatch,user);
+      props.navigation.navigate('Chat')
     }
   }
 

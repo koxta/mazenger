@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { 
   View,
   Text,
@@ -12,21 +12,24 @@ import Firebase from '../../Services/Firebase';
 import { Message, User } from '../../Models';
 import Colors from '../../Assets/Colors';
 import MessageInput from './components/MessageInput';
+import { Store } from '../../Store/Store';
 
 
 export default () => {
+
+  const { state, dispatch } = useContext(Store);
+
+  const { user } = state;
 
   useEffect(()=>{
     Firebase.getMessages((message:Message)=>{
       console.log(message);
     });
   },[])
-  
-  const buttonPress = () => {
-    const user = new User();
-    user.userName = 'gmaziashvili';
-    user.uid='qergeaerg342qqe4ga';
-    Firebase.send('hi',user);
+
+  const onSend = (text:String) => {
+    console.log(text);
+    console.log(user)
   }
 
   return(
@@ -35,7 +38,7 @@ export default () => {
       behavior={Platform.OS === 'ios' ? 'padding' : null}  
     >
       <SafeAreaView>
-      <MessageInput/>
+      <MessageInput onSend={(text)=>onSend(text)}/>
       </SafeAreaView>
     </KeyboardAvoidingView>
   )

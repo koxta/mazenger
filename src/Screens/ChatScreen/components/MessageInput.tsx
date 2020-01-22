@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   TextInput, StyleSheet, View, TouchableOpacity, Text
 } from 'react-native';
 import Colors from '../../../Assets/Colors';
 import { Icon } from 'react-native-elements';
 
-export default () => {
+export default ({onSend}) => {
+  const [text,setText] = useState('');
+  const submit = () => {
+    if(text === '') return;
+    onSend(text);
+  }
+
   return (
     <View style={styles.container}>
       <TextInput
@@ -13,8 +19,9 @@ export default () => {
         placeholder={'შეიყვანეთ ტექსტი'}
         placeholderTextColor={Colors.Text}
         multiline
+        onChangeText = {(text) => setText(text)}
       />
-      <TouchableOpacity style={styles.sendTouchable}>
+      <TouchableOpacity style={styles.sendTouchable} onPress={submit}>
         <Icon
           type={'material-community'}
           name={'send'}

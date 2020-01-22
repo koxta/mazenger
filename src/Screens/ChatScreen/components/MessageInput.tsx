@@ -10,6 +10,7 @@ export default ({onSend}) => {
   const submit = () => {
     if(text === '') return;
     onSend(text);
+    setText('')
   }
 
   return (
@@ -20,6 +21,7 @@ export default ({onSend}) => {
         placeholderTextColor={Colors.Text}
         multiline
         onChangeText = {(text) => setText(text)}
+        value={text}
       />
       <TouchableOpacity style={styles.sendTouchable} onPress={submit}>
         <Icon

@@ -3,7 +3,7 @@ import React, { createContext, useReducer } from 'react';
 import reducer from './Reducer'
 import { User, Message } from '../Models';
 
-interface IInitialState{
+export interface IInitialState{
   user:User;
   messages:Array<Message>;
 }

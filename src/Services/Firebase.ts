@@ -40,6 +40,7 @@ class Firebase{
       'message': message,
       'uid': user.uid,
       'timeStamp': firebase.database.ServerValue.TIMESTAMP,
+      'userName':user.userName,
     }
     this.database().push(messageObj)
   }

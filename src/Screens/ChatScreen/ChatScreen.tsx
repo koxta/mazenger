@@ -13,6 +13,8 @@ import { Message, User } from '../../Models';
 import Colors from '../../Assets/Colors';
 import MessageInput from './components/MessageInput';
 import { Store } from '../../Store/Store';
+import Messages from './components/Messages';
+import { addMessage } from '../../Models/Message';
 
 
 export default () => {
@@ -24,12 +26,15 @@ export default () => {
   useEffect(()=>{
     Firebase.getMessages((message:Message)=>{
       console.log(message);
+      if(message)
+      addMessage(dispatch,message)
     });
   },[])
 
-  const onSend = (text:String) => {
+  const onSend = (text:string) => {
     console.log(text);
-    console.log(user)
+    console.log(user);
+    Firebase.send(text,user);
   }
 
   return(
@@ -40,6 +45,7 @@ export default () => {
       <SafeAreaView>
       <MessageInput onSend={(text)=>onSend(text)}/>
       </SafeAreaView>
+      <Messages/>
     </KeyboardAvoidingView>
   )
 }
